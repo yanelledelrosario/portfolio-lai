@@ -1,0 +1,72 @@
+:root {
+    --deep-wisteria: #8E44AD;
+    --classic-wisteria: #9B59B6;
+    --soft-wisteria: #BB8FCE;
+    --lavender-tint: #C3A0DC;
+    --pale-lilac: #DBC3EA;
+    --mist: #F0E0FF;
+    --white: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+body { display: flex; background: var(--mist); height: 100vh; }
+
+/* Sidebar */
+.sidebar { width: 220px; background: var(--deep-wisteria); color: var(--white); display: flex; flex-direction: column; }
+
+/* Topbar Full Width */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--deep-wisteria);
+    border-bottom: 2px solid var(--soft-wisteria);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    z-index: 1000;
+}
+
+/* Sidebar below topbar */
+.sidebar {
+    position: fixed;
+    top: 60px; /* height of topbar */
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 60px);
+    background: var(--deep-wisteria);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content next to sidebar and below topbar */
+.main-content {
+    margin-left: 220px; /* sidebar width */
+    margin-top: 60px;   /* topbar height */
+    padding: 40px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+/* Sidebar Menu */
+.sidebar-menu { list-style: none; padding: 20px 0; }
+.sidebar-menu li { padding: 15px 20px; cursor: pointer; transition: background 0.3s; }
+.sidebar-menu li.active { border-left: 4px solid var(--classic-wisteria); background: var(--soft-wisteria); }
+.sidebar-menu li:hover { background: var(--lavender-tint); }
+
+/* Main Content */
+.main-content { flex: 1; padding: 40px; overflow-y: auto; }
+
+.section { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+.section h2 { color: var(--deep-wisteria); margin-bottom: 15px; }
+.section p { line-height: 1.6; color: #333; }
+
+/* Modal (for future projects) */
+.modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+.modal-content { background: var(--white); padding: 20px; border-radius: 12px; width: 80%; max-width: 500px; }
+.modal-close { cursor:pointer; float:right; font-weight:bold; }
