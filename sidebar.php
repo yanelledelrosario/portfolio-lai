@@ -5,10 +5,7 @@
     <!-- Topbar -->
     <div class="topbar">
         <div class="logo">[Logo] Lai's Portfolio</div>
-        <div class="profile">
-            <img src="assets/images/profile.jpg" alt="Profile">
-            <span>Lai</span>
-        </div>
+        
     </div>
 
     <!-- Sidebar Menu -->
