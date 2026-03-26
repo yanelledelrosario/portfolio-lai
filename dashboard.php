@@ -8,7 +8,7 @@ $projects = [
     ["Login Authentication System", "A secure login system with validation."]
 ];
 
-$experience = "1 Year Learning";
+$experience = "4 Year Learning";
 ?>
 
 <link rel="stylesheet" href="assets/style.css">
@@ -18,7 +18,7 @@ $experience = "1 Year Learning";
     <div class="dashboard-header">
         <h2>Dashboard</h2>
         <p>Hello, I'm <strong>Lai</strong> 👋</p>
-        <p class="tagline">Aspiring Web Developer passionate about building modern web systems.</p>
+        <p class="tagline">An Aspiring Web Developer passionate about building modern web systems.</p>
     </div>
 
     <!-- Stats -->

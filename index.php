@@ -18,7 +18,7 @@
 <!-- Main Content -->
 <div class="main-content">
     <div id="tab-content">
-        <?php include 'about_me.php'; ?>
+        <?php include 'dashboard.php'; ?>
 
     </div>
 </div>
