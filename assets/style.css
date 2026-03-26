@@ -12,7 +12,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-body { display: flex; background: #f7f0ff; min-height: 100vh; }
+body { display: flex; background: linear-gradient(to top, #600089, var(--mist)); min-height: 100vh; }
 
 /* ── TOPBAR ───────────────────────────────── */
 .topbar {
