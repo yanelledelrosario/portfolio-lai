@@ -52,7 +52,7 @@ body { display: flex; background: var(--mist); height: 100vh; }
     font-size: 16px;
 }
 
-/* Sidebar below topbar */
+/* Sidebar  */
 .sidebar {
     position: fixed;
     top: 60px; /* height of topbar */
