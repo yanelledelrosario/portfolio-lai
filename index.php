@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lai's Portfolio</title>
 <link rel="stylesheet" href="assets/style.css">
+<!-- Google Fonts: Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,7 +18,8 @@
 <!-- Main Content -->
 <div class="main-content">
     <div id="tab-content">
-        <?php include 'about_me.php'; ?>
+        <?php include 'dashboard.php'; ?>
+
     </div>
 </div>
 
