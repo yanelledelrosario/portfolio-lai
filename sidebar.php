@@ -4,12 +4,12 @@
 <div class="sidebar">
     <!-- Topbar -->
     <div class="topbar">
-        <div class="logo">[Logo] Lai's Portfolio</div>
-        <div class="profile">
-            <img src="assets/images/profile.jpg" alt="Profile">
-            <span>Lai</span>
-        </div>
+    <div class="topbar-left">
+        <img src="assets/images/logo.png" alt="Logo" class="logo-img">
+        <span class="logo-text">Lai's Portfolio</span>
     </div>
+</div>
+
 
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
