@@ -49,7 +49,7 @@ $skills_summary = ["HTML", "CSS", "JavaScript", "PHP"];
 
     <!-- Experience -->
     <div class="resume-block">
-        <div class="resume-block-title">💼 Projects & Experience</div>
+        <div class="resume-block-title">Projects & Experience</div>
         <?php foreach ($experience as $item): ?>
         <div class="timeline-item">
             <div class="timeline-dot"></div>

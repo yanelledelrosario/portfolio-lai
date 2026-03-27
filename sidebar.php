@@ -1,19 +1,17 @@
 <?php
 // sidebar.php
 ?>
-<div class="sidebar">
-    <!-- Topbar -->
-    <div class="topbar">
-        <div class="logo">[Logo] Lai's Portfolio</div>
-        
+
+<!-- Topbar -->
+<div class="topbar">
     <div class="topbar-left">
         <img src="assets/images/logo.png" alt="Logo" class="logo-img">
         <span class="logo-text">Lai's Portfolio</span>
     </div>
 </div>
 
-
-    <!-- Sidebar Menu -->
+<!-- Sidebar -->
+<div class="sidebar">
     <ul class="sidebar-menu">
         <li class="active" data-page="dashboard">Dashboard</li>
         <li data-page="about_me">About Me</li>
