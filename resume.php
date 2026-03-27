@@ -3,9 +3,9 @@
 
 $education = [
     [
-        "degree"      => "Web Development Studies",
-        "school"      => "Self-directed & Coursework",
-        "period"      => "2024 – Present",
+        "degree"      => "Bachelor in Information Technology with Specialization in Data Science",
+        "school"      => "Universidad de Manila",
+        "period"      => "2022 – 2026",
         "description" => "Learning HTML, CSS, JavaScript, and PHP through coursework and hands-on personal projects.",
     ],
 ];
