@@ -4,6 +4,8 @@
 <div class="sidebar">
     <!-- Topbar -->
     <div class="topbar">
+        <div class="logo">[Logo] Lai's Portfolio</div>
+        
     <div class="topbar-left">
         <img src="assets/images/logo.png" alt="Logo" class="logo-img">
         <span class="logo-text">Lai's Portfolio</span>
