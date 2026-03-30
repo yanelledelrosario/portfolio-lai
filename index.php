@@ -19,19 +19,15 @@
 <div class="main-content">
     <div id="tab-content">
         <?php include 'dashboard.php'; ?>
-
     </div>
 </div>
 
-<!-- Embedded JS at bottom -->
 <script>
-// Tab switching
-const tabs = document.querySelectorAll('.sidebar-menu li');
+const tabs = document.querySelectorAll('.topbar-menu li');
 const content = document.getElementById('tab-content');
 
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-        // Remove active class from all
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
 
@@ -44,13 +40,13 @@ tabs.forEach(tab => {
     });
 });
 
-// Modal popup (for future projects)
+// Modal popup
 document.addEventListener('click', function(e) {
-    if(e.target.classList.contains('modal-open')) {
+    if (e.target.classList.contains('modal-open')) {
         const modal = document.querySelector('.modal');
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
     }
-    if(e.target.classList.contains('modal-close')) {
+    if (e.target.classList.contains('modal-close')) {
         const modal = e.target.closest('.modal');
         modal.style.display = 'none';
     }

@@ -1,6 +1,6 @@
 <?php
-include 'sidebar.php';
-// ===== TEMP DATA (can move later) =====
+// dashboard.php
+
 $skills = ["HTML", "CSS", "JavaScript", "PHP"];
 
 $projects = [
@@ -11,14 +11,24 @@ $projects = [
 $experience = "4 Year Learning";
 ?>
 
-<link rel="stylesheet" href="assets/style.css">
-<div class="section">
+<div class="hero-section">
 
-    <!-- Welcome -->
-    <div class="dashboard-header">
-        <h2>Dashboard</h2>
-        <p>Hello, I'm <strong>Lai</strong> 👋</p>
-        <p class="tagline">An Aspiring Web Developer passionate about building modern web systems.</p>
+    <!-- Hero Top: Header Image -->
+    <div class="hero-top">
+        <img src="assets/images/header.png" alt="Lai Rache - Web Developer" class="hero-banner-img">
+    </div>
+
+    <!-- Hero Bottom: Bio + Photo -->
+    <div class="hero-body">
+        <div class="hero-bio">
+            <p>I am a passionate and adaptable individual with a strong interest in technology and creative development. I specialize in building web-based systems and exploring innovative solutions that solve real-world problems.</p>
+            <p>With experience in system development, database management, and user interface design, I enjoy transforming ideas into functional and user-friendly applications. Beyond technology, I also engage in creative work such as Script writing, Narrative writing and Visual art, allowing me to balance logic with creativity.</p>
+            <p>Driven by growth and guided by innovation, I continuously strive to improve my skills and contribute meaningful solutions in both technical and creative fields.</p>
+        </div>
+
+        <div class="hero-photo">
+            <img src="assets/images/profile.png" alt="Lai Rache" style="object-position: center top;">
+        </div>
     </div>
 
     <!-- Stats -->
@@ -27,27 +37,14 @@ $experience = "4 Year Learning";
             <h3><?php echo count($skills); ?></h3>
             <p>Skills</p>
         </div>
-
         <div class="stat-card">
             <h3><?php echo count($projects); ?></h3>
             <p>Projects</p>
         </div>
-
         <div class="stat-card">
             <h3><?php echo $experience; ?></h3>
             <p>Experience</p>
         </div>
-    </div>
-
-    <!--  Highlights -->
-    <div class="section highlight-section">
-        <h3>Highlights</h3>
-        <ul class="highlights-list">
-            <li>Strong problem-solving mindset</li>
-            <li>Adaptable and quick learner</li>
-            <li>Focused on web development and UI design</li>
-            <li>Driven by growth and continuous improvement</li>
-        </ul>
     </div>
 
 </div>

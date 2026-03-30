@@ -8,11 +8,8 @@
         <img src="assets/images/logo.png" alt="Logo" class="logo-img">
         <span class="logo-text">Lai's Portfolio</span>
     </div>
-</div>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <ul class="sidebar-menu">
+    <ul class="topbar-menu">
         <li class="active" data-page="dashboard">Dashboard</li>
         <li data-page="about_me">About Me</li>
         <li data-page="skills">Skills</li>
