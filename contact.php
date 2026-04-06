@@ -1,8 +1,65 @@
 <?php
-// about_me.php
+// contact.php
 ?>
-<div class="section about-me">
-    <h2>About Me</h2>
-    <p>I am a passionate and adaptable individual with a strong interest in technology and creative development. I specialize in building web-based systems and exploring innovative solutions that solve real-world problems.</p>
-            <p>With experience in system development, database management, and user interface design, I enjoy transforming ideas into functional and user-friendly applications. Beyond technology, I also engage in creative work such as script writing and content creation, allowing me to balance logic with creativity.</p>
-            <p>Driven by growth and guided by innovation, I continuously strive to improve my skills and contribute meaningful solutions in both technical and creative fields.</p>
+
+<div class="section contact-section">
+    <h2>Contact Me</h2>
+    <p class="contact-subtitle">Feel free to reach out — I'd love to connect!</p>
+
+    <div class="contact-wrapper">
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">lairache@gmail.com</div>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🔗</div>
+                <div>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">github.com/lairache</div>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">💼</div>
+                <div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">linkedin.com/in/lairache</div>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <div>
+                    <div class="contact-label">Location</div>
+                    <div class="contact-value">Manila, Philippines</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" placeholder="What's this about?">
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea rows="5" placeholder="Write your message here..."></textarea>
+            </div>
+            <button class="btn-send">Send Message →</button>
+        </div>
+
+    </div>
+</div>
