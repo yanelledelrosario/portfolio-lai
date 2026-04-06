@@ -89,7 +89,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 
 #tab-content {
     width: 100%;
-    padding: 30px;
+    padding: 0px;
 }
 
 /* ── SECTION BASE ────────────────────────── */
