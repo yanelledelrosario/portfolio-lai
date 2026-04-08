@@ -17,7 +17,7 @@ $projects = [
 
 <div class="section">
     <h2>Projects</h2>
-    <p style="color:#777; margin-bottom:24px; font-size:14px;">Things I've built</p>
+    <p style="color:#777; padding-left: 10px; margin-bottom:24px; font-size:14px;">Things I've built</p>
 
     <div class="projects-list">
         <?php foreach ($projects as $project): ?>
