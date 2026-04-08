@@ -1157,3 +1157,32 @@ tbody td {
         font-size: 13px;
     }
 }
+
+/* Logout Modal Buttons */
+.btn-cancel {
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    color: var(--deep-wisteria);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-cancel:hover {
+    background: var(--pale-lilac);
+}
+
+.btn-logout-confirm {
+    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
+    color: white;
+    border-radius: 8px;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-logout-confirm:hover {
+    opacity: 0.9;
+}

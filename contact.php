@@ -70,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-
+            
         <!-- Contact Form -->
         <div class="contact-form">
             <div id="contact-alert" class="form-alert" style="display:none;"></div>
-
+             <p class="contact-subtitle">Or Simply fill these fields to send a message!</p>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" id="c-name" placeholder="Your name">

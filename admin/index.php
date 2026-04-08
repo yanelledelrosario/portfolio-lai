@@ -48,9 +48,8 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
 <div class="topbar">
     <div class="topbar-title">Messages</div>
     <div class="topbar-right">
-        Hi, <strong><?php echo htmlspecialchars($_SESSION['admin_username']); ?></strong>
-        <a href="logout.php" class="btn-logout">Logout</a>
-    </div>
+        Hi!<strong><?php echo htmlspecialchars($_SESSION['admin_username']); ?></strong>
+        <button onclick="openLogoutModal()" class="btn-logout">Logout</button>    </div>
 </div>
 
 <div class="main">
@@ -148,7 +147,21 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
         <button class="btn-close" onclick="closeModal()">Close</button>
     </div>
 </div>
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeLogoutModal()">&times;</span>
+        <h3 style="margin-bottom:10px; color: var(--deep-wisteria);">Confirm Logout</h3>
+        <p style="font-size:14px; color:#555; margin-bottom:20px;">
+            Are you sure you want to log out?
+        </p>
 
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button onclick="closeLogoutModal()" class="btn-cancel">Cancel</button>
+            <a href="logout.php" class="btn-logout-confirm">Logout</a>
+        </div>
+    </div>
+</div>
 <script>
 document.querySelectorAll('.btn-view').forEach(btn => {
     btn.addEventListener('click', function(e) {
@@ -181,6 +194,24 @@ function closeModal() {
 document.getElementById('msgModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
 });
+
+// Logout Modal
+function openLogoutModal() {
+    document.getElementById("logoutModal").style.display = "flex";
+}
+
+function closeLogoutModal() {
+    document.getElementById("logoutModal").style.display = "none";
+}
+
+// Close when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById("logoutModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
 </script>
 
 </body>
