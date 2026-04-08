@@ -11,7 +11,7 @@ $skills = [
 
 <div class="section">
     <h2>Skills</h2>
-    <p style="color:#777; margin-bottom:24px; font-size:14px;">Technologies I work with</p>
+    <p style="color:#777; padding-left: 10px; margin-bottom:24px; font-size:14px;">Technologies I work with</p>
 
     <div class="skills-grid">
         <?php foreach ($skills as $skill): ?>

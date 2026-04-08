@@ -15,5 +15,6 @@
         <li data-page="projects">Projects</li>
         <li data-page="resume">Resume</li>
         <li data-page="contact">Contact</li>
+        <li class="admin-link" onclick="window.open('admin/login.php', '_blank')">Admin</li>
     </ul>
 </div>

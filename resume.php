@@ -30,7 +30,7 @@ $skills_summary = ["HTML", "CSS", "JavaScript", "PHP"];
 
 <div class="section">
     <h2>Resume</h2>
-    <p style="color:#777; margin-bottom:28px; font-size:14px;">My background and learning journey</p>
+    <p style="color:#777; margin-bottom:28px; padding-left:10px; font-size:14px;">My background and learning journey</p>
 
     <!-- Education -->
     <div class="resume-block">

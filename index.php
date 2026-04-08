@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lai's Portfolio</title>
 <link rel="stylesheet" href="assets/style.css">
-<!-- Google Fonts: Poppins -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -23,8 +22,17 @@
 </div>
 
 <script>
-const tabs = document.querySelectorAll('.topbar-menu li');
+const tabs = document.querySelectorAll('.topbar-menu li:not(.admin-link)');
 const content = document.getElementById('tab-content');
+
+// Re-runs <script> tags injected via innerHTML (they don't execute automatically)
+function runScripts(container) {
+    container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        newScript.textContent = oldScript.textContent;
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+}
 
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -36,6 +44,7 @@ tabs.forEach(tab => {
             .then(res => res.text())
             .then(data => {
                 content.innerHTML = data;
+                runScripts(content); // <-- execute any scripts in the loaded page
             });
     });
 });
