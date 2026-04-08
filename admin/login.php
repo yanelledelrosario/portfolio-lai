@@ -1,13 +1,14 @@
 <?php
-// admin/login.php
+
 session_start();
+include 'db.php';
 
 if (isset($_SESSION['admin_logged_in'])) {
     header('Location: index.php');
     exit;
 }
 
-include '../db.php';
+
 
 $error = '';
 
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-card">
         <div class="login-logo">
-            <h1>🔐 Admin Panel</h1>
+            <h1>Hey Lai!</h1>
             <p>Lai's Portfolio</p>
         </div>
 

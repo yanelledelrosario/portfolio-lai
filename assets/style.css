@@ -403,7 +403,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 }
 
 .timeline-role {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: #333;
     margin-bottom: 4px;
@@ -507,7 +507,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 }
 
 .hero-bio p {
-    font-size: 15px;
+    font-size: 18px;
     color: #333;
     line-height: 1.9;
     text-align: justify;

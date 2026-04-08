@@ -1,13 +1,13 @@
 <?php
-// admin/index.php
 session_start();
+include 'db.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
     exit;
 }
 
-include '../db.php';
+
 
 // Mark message as read
 if (isset($_GET['read'])) {
