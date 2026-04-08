@@ -83,8 +83,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 
 /* ── MAIN CONTENT ────────────────────────── */
 .main-content {
-    margin-top: 60px;
-    padding: 10px;
+    padding: 20px 10px 10px;
     min-height: calc(100vh - 60px);
 }
 
@@ -1006,4 +1005,155 @@ tbody td {
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+}
+
+/* ============================= */
+/* 📱 TABLET (768px and below) */
+/* ============================= */
+@media (max-width: 768px) {
+
+    .topbar {
+        padding: 0 15px;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .topbar-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .main-content {
+        margin-top: 100px;
+        padding: 10px 10px;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .section h2 {
+        font-size: 22px;
+    }
+
+    .section p {
+        font-size: 15px;
+    }
+
+    /* HERO SECTION */
+    .hero-body {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .hero-photo {
+        width: 100%;
+    }
+
+    .hero-bio p {
+        font-size: 16px;
+        text-align: left;
+    }
+
+    /* CONTACT */
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* STATS */
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================= */
+/* 📱 MOBILE (480px and below) */
+/* ============================= */
+@media (max-width: 480px) {
+
+    .topbar {
+        padding: 10px;
+    }
+
+    .logo-text {
+        font-size: 14px;
+    }
+
+    .topbar-menu li {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
+
+    .section p {
+        font-size: 14px;
+    }
+
+    /* TIMELINE (RESUME) */
+    .timeline-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .timeline-role {
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    .timeline-meta {
+        font-size: 11px;
+    }
+
+    .timeline-desc {
+        font-size: 12px;
+    }
+
+    /* SKILLS */
+    .skill-pill {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    /* PROJECTS */
+    .project-card {
+        padding: 16px;
+    }
+
+    .project-title {
+        font-size: 15px;
+    }
+
+    .project-desc {
+        font-size: 13px;
+    }
+
+    /* TABLE (ADMIN PANEL FIX) */
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: 15px;
+        background: var(--white);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    tbody td {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
 }
