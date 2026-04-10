@@ -13,6 +13,7 @@
         <li class="active" data-page="dashboard">Dashboard</li>
         <li data-page="skills">Skills</li>
         <li data-page="projects">Projects</li>
+        <li data-page="services">Services</li>
         <li data-page="resume">Resume</li>
         <li data-page="contact">Contact</li>
     </ul>

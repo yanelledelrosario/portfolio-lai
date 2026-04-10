@@ -83,30 +83,28 @@ body { background: #f7f0ff; min-height: 100vh; }
 
 /* ── MAIN CONTENT ────────────────────────── */
 .main-content {
-    padding: 20px 10px 10px;
+    margin-top: 60px;
+    padding: 30px;
     min-height: calc(100vh - 60px);
 }
 
 #tab-content {
     width: 100%;
-    padding-left: 10px;
 }
 
 /* ── SECTION BASE ────────────────────────── */
 .section {
     background: var(--white);
-    padding: 0px;
+    padding: 28px 30px;
     border-radius: 14px;
     box-shadow: 0 2px 10px rgba(142, 68, 173, 0.08);
     border: 1px solid #ede4f7;
     margin-bottom: 20px;
-    margin-top: 40px;
 }
 
 .section h2 {
     color: var(--deep-wisteria);
-    padding-left: 10px;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 14px;
 }
@@ -114,7 +112,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 .section p {
     line-height: 1.7;
     color: #444;
-    font-size: 20px;
+    font-size: 14px;
 }
 
 /* ── DASHBOARD HEADER ────────────────────── */
@@ -262,8 +260,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 10px;
-    padding: 0px 20px 20px;
+    gap: 16px;
 }
 
 .skill-card {
@@ -271,7 +268,6 @@ body { background: #f7f0ff; min-height: 100vh; }
     border: 1px solid var(--pale-lilac);
     border-radius: 12px;
     padding: 18px 20px;
-    
 }
 
 .skill-top {
@@ -326,7 +322,6 @@ body { background: #f7f0ff; min-height: 100vh; }
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 0px 20px 20px;
 }
 
 .project-card {
@@ -374,7 +369,6 @@ body { background: #f7f0ff; min-height: 100vh; }
 /* ── RESUME ──────────────────────────────── */
 .resume-block {
     margin-bottom: 28px;
-    padding: 0px 20px 20px;
 }
 
 .resume-block-title {
@@ -497,7 +491,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 /* Hero body: bio + photo */
 .hero-body {
     background: var(--mist);
-    padding: 20px 0px 0px 20px;
+    padding: 20px 40px 40px 40px;
     display: flex;
     align-items: center;
     gap: 40px;
@@ -513,7 +507,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 }
 
 .hero-bio p {
-    font-size: 20px;
+    font-size: 15px;
     color: #333;
     line-height: 1.9;
     text-align: justify;
@@ -544,8 +538,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 .contact-subtitle {
     color: var(--soft-wisteria);
     font-size: 14px;
-    margin-bottom: 10px;
-    padding-left: 15px;
+    margin-bottom: 30px;
 }
 
 .contact-wrapper {
@@ -553,7 +546,6 @@ body { background: #f7f0ff; min-height: 100vh; }
     grid-template-columns: 1fr 1.6fr;
     gap: 30px;
     align-items: start;
-    padding: 0 20px 20px;
 }
 
 .contact-info {
@@ -1010,159 +1002,182 @@ tbody td {
     font-weight: 600;
     cursor: pointer;
 }
-
-/* ============================= */
-/* 📱 TABLET (768px and below) */
-/* ============================= */
-@media (max-width: 768px) {
-
-    .topbar {
-        padding: 0 15px;
-        height: auto;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .topbar-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .main-content {
-        margin-top: 100px;
-        padding: 10px 10px;
-    }
-
-    .section {
-        padding: 15px;
-    }
-
-    .section h2 {
-        font-size: 22px;
-    }
-
-    .section p {
-        font-size: 15px;
-    }
-
-    /* HERO SECTION */
-    .hero-body {
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-    }
-
-    .hero-photo {
-        width: 100%;
-    }
-
-    .hero-bio p {
-        font-size: 16px;
-        text-align: left;
-    }
-
-    /* CONTACT */
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    /* STATS */
-    .stats-row {
-        grid-template-columns: 1fr;
-    }
+/* ── SKILLS BLOCK TITLE ──────────────────── */
+.skills-block-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--deep-wisteria);
+    margin-bottom: 16px;
+    padding: 0 20px 8px;
+    border-bottom: 2px solid var(--pale-lilac);
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-
-/* ============================= */
-/* 📱 MOBILE (480px and below) */
-/* ============================= */
-@media (max-width: 480px) {
-
-    .topbar {
-        padding: 10px;
-    }
-
-    .logo-text {
-        font-size: 14px;
-    }
-
-    .topbar-menu li {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-    .section h2 {
-        font-size: 18px;
-    }
-
-    .section p {
-        font-size: 14px;
-    }
-
-    /* TIMELINE (RESUME) */
-    .timeline-item {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .timeline-role {
-        font-size: 14px;
-        flex-wrap: wrap;
-    }
-
-    .timeline-meta {
-        font-size: 11px;
-    }
-
-    .timeline-desc {
-        font-size: 12px;
-    }
-
-    /* SKILLS */
-    .skill-pill {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
-
-    /* PROJECTS */
-    .project-card {
-        padding: 16px;
-    }
-
-    .project-title {
-        font-size: 15px;
-    }
-
-    .project-desc {
-        font-size: 13px;
-    }
-
-    /* TABLE (ADMIN PANEL FIX) */
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-    }
-
-    thead {
-        display: none;
-    }
-
-    tbody tr {
-        margin-bottom: 15px;
-        background: var(--white);
-        border-radius: 10px;
-        padding: 10px;
-    }
-
-    tbody td {
-        padding: 8px 10px;
-        font-size: 13px;
-    }
+/* ── SOFT SKILLS ─────────────────────────── */
+.soft-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    padding: 0 20px 20px;
 }
 
-/* Logout Modal Buttons */
+.soft-skill-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.soft-skill-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(142, 68, 173, 0.12);
+}
+
+.soft-skill-icon {
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    background: var(--pale-lilac);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.soft-skill-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--deep-wisteria);
+    margin-bottom: 4px;
+}
+
+.soft-skill-desc {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.6;
+}
+
+/* ── SERVICES ────────────────────────────── */
+.services-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 0 20px 20px;
+}
+
+.service-group-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--deep-wisteria);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--pale-lilac);
+}
+
+.service-group-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--pale-lilac);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.service-card {
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(142, 68, 173, 0.12);
+}
+
+.service-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--deep-wisteria);
+    margin-bottom: 6px;
+}
+
+.service-card-desc {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.6;
+}
+
+/* ── CONTACT SELECT DROPDOWN ─────────────── */
+.contact-select {
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B59B6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.contact-select:focus {
+    border-color: var(--classic-wisteria);
+}
+
+.contact-select option,
+.contact-select optgroup {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+/* ── DELETE CONFIRM BUTTON ───────────────── */
+.btn-delete-confirm {
+    background: #dc2626;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-delete-confirm:hover {
+    opacity: 0.85;
+}
+
+/* ── CANCEL BUTTON ───────────────────────── */
 .btn-cancel {
     background: var(--mist);
     border: 1px solid var(--pale-lilac);
@@ -1171,22 +1186,11 @@ tbody td {
     padding: 8px 16px;
     cursor: pointer;
     font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
 .btn-cancel:hover {
     background: var(--pale-lilac);
-}
-
-.btn-logout-confirm {
-    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
-    color: white;
-    border-radius: 8px;
-    padding: 8px 18px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.btn-logout-confirm:hover {
-    opacity: 0.9;
 }

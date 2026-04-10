@@ -2,7 +2,6 @@
 // contact.php
 include 'admin/db.php';
 
-// Handle AJAX POST — return JSON, never redirect
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
 
@@ -21,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $sql = "INSERT INTO messages (name, email, subject, message)
-            VALUES ('$name', '$email', '$subject', '$message')";
+    $sql = "INSERT INTO messages (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
 
     if ($conn->query($sql)) {
         echo json_encode(['success' => true]);
@@ -31,6 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     exit;
 }
+
+$services = [
+    "Web Development"    => ["Website Building", "Web-Based Systems", "Login & Authentication"],
+    "UI/UX Design"       => ["Interface Design", "Form & Layout Design"],
+    "Hardware Services"  => ["Laptop Repair", "Parts Isolation", "Reformat & OS Reinstallation"],
+    "Content & Creative" => ["Script Writing", "Narrative Writing", "Visual Art"],
+    "Tutoring & Teaching"=> ["English Language Tutoring", "Web Development Basics"],
+    "Others"             => [],
+];
 ?>
 
 <div class="section contact-section">
@@ -70,10 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-            
+
         <!-- Contact Form -->
         <div class="contact-form">
             <div id="contact-alert" class="form-alert" style="display:none;"></div>
+
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" id="c-name" placeholder="Your name">
@@ -82,10 +90,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label>Email</label>
                 <input type="email" id="c-email" placeholder="your@email.com">
             </div>
+
+            <!-- Step 1: Category -->
             <div class="form-group">
-                <label>Subject</label>
-                <input type="text" id="c-subject" placeholder="What's this about?">
+                <label>Category</label>
+                <select id="c-category" class="contact-select">
+                    <option value="" disabled selected>Select a category...</option>
+                    <?php foreach ($services as $category => $items): ?>
+                    <option value="<?php echo htmlspecialchars($category); ?>"><?php echo $category; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
+
+            <!-- Step 2: Specific service (shown when non-Others category picked) -->
+            <div class="form-group" id="service-group" style="display:none;">
+                <label>Service</label>
+                <select id="c-service" class="contact-select">
+                    <option value="" disabled selected>Select a service...</option>
+                </select>
+            </div>
+
+            <!-- Others: free text (shown when Others picked) -->
+            <div class="form-group" id="others-group" style="display:none;">
+                <label>Please specify</label>
+                <input type="text" id="c-others" placeholder="Describe what you need...">
+            </div>
+
             <div class="form-group">
                 <label>Message</label>
                 <textarea id="c-message" rows="5" placeholder="Write your message here..."></textarea>
@@ -114,9 +144,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 (function () {
-    const btn     = document.getElementById('contact-submit');
-    const alertEl = document.getElementById('contact-alert');
-    const overlay = document.getElementById('sent-modal-overlay');
+    const services    = <?php echo json_encode($services); ?>;
+    const categoryEl  = document.getElementById('c-category');
+    const serviceEl   = document.getElementById('c-service');
+    const serviceGrp  = document.getElementById('service-group');
+    const othersGrp   = document.getElementById('others-group');
+    const othersEl    = document.getElementById('c-others');
+    const btn         = document.getElementById('contact-submit');
+    const alertEl     = document.getElementById('contact-alert');
+    const overlay     = document.getElementById('sent-modal-overlay');
+
+    categoryEl.addEventListener('change', function () {
+        const cat = this.value;
+
+        // Reset
+        serviceEl.innerHTML = '<option value="" disabled selected>Select a service...</option>';
+        serviceGrp.style.display = 'none';
+        othersGrp.style.display  = 'none';
+        othersEl.value = '';
+
+        if (cat === 'Others') {
+            othersGrp.style.display = 'flex';
+        } else {
+            (services[cat] || []).forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item;
+                opt.textContent = item;
+                serviceEl.appendChild(opt);
+            });
+            serviceGrp.style.display = 'flex';
+        }
+    });
 
     function showError(msg) {
         alertEl.textContent = msg;
@@ -128,19 +186,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function clearForm() {
         document.getElementById('c-name').value    = '';
         document.getElementById('c-email').value   = '';
-        document.getElementById('c-subject').value = '';
         document.getElementById('c-message').value = '';
+        categoryEl.selectedIndex = 0;
+        serviceEl.innerHTML = '<option value="" disabled selected>Select a service...</option>';
+        serviceGrp.style.display = 'none';
+        othersGrp.style.display  = 'none';
+        othersEl.value = '';
     }
 
     btn.addEventListener('click', function () {
         const name    = document.getElementById('c-name').value.trim();
         const email   = document.getElementById('c-email').value.trim();
-        const subject = document.getElementById('c-subject').value.trim();
         const message = document.getElementById('c-message').value.trim();
+        const cat     = categoryEl.value;
 
-        if (!name || !email || !subject || !message) {
+        if (!name || !email || !cat || !message) {
             showError('Please fill in all fields.');
             return;
+        }
+
+        let subject = '';
+        if (cat === 'Others') {
+            const specify = othersEl.value.trim();
+            if (!specify) { showError('Please describe what you need.'); return; }
+            subject = 'Others: ' + specify;
+        } else {
+            const svc = serviceEl.value;
+            if (!svc) { showError('Please select a service.'); return; }
+            subject = cat + ' — ' + svc;
         }
 
         btn.disabled = true;
@@ -169,14 +242,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
     });
 
-    // Back to Dashboard — click the dashboard tab
     document.getElementById('modal-dashboard-btn').addEventListener('click', function () {
         overlay.style.display = 'none';
         const dashTab = document.querySelector('.topbar-menu li[data-page="dashboard"]');
         if (dashTab) dashTab.click();
     });
 
-    // Send another message — just close modal, form already cleared
     document.getElementById('modal-another-btn').addEventListener('click', function () {
         overlay.style.display = 'none';
     });

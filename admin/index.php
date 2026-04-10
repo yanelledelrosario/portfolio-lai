@@ -7,8 +7,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-
-
 // Mark message as read
 if (isset($_GET['read'])) {
     $id = (int) $_GET['read'];
@@ -26,8 +24,8 @@ if (isset($_GET['delete'])) {
 }
 
 // Fetch messages
-$filter = $_GET['filter'] ?? 'all';
-$where  = $filter === 'unread' ? 'WHERE is_read = 0' : ($filter === 'read' ? 'WHERE is_read = 1' : '');
+$filter   = $_GET['filter'] ?? 'all';
+$where    = $filter === 'unread' ? 'WHERE is_read = 0' : ($filter === 'read' ? 'WHERE is_read = 1' : '');
 $messages = $conn->query("SELECT * FROM messages $where ORDER BY created_at DESC");
 
 $total  = $conn->query("SELECT COUNT(*) as c FROM messages")->fetch_assoc()['c'];
@@ -41,15 +39,15 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
     <title>Admin Panel</title>
     <link rel="stylesheet" href="../assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
 </head>
 <body>
 
 <div class="topbar">
     <div class="topbar-title">Messages</div>
     <div class="topbar-right">
-        Hi!<strong><?php echo htmlspecialchars($_SESSION['admin_username']); ?></strong>
-        <button onclick="openLogoutModal()" class="btn-logout">Logout</button>    </div>
+        Hi! <strong><?php echo htmlspecialchars($_SESSION['admin_username']); ?></strong>
+        <button onclick="openLogoutModal()" class="btn-logout">Logout</button>
+    </div>
 </div>
 
 <div class="main">
@@ -126,8 +124,9 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
                                 <?php if (!$msg['is_read']): ?>
                                     <a href="?read=<?php echo $msg['id']; ?>" class="btn-read">Mark Read</a>
                                 <?php endif; ?>
-                                <a href="?delete=<?php echo $msg['id']; ?>" class="btn-delete"
-                                   onclick="return confirm('Delete this message?')">Delete</a>
+                                <a href="#" class="btn-delete btn-delete-trigger"
+                                   data-id="<?php echo $msg['id']; ?>"
+                                   data-name="<?php echo htmlspecialchars($msg['name']); ?>">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -147,27 +146,44 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
         <button class="btn-close" onclick="closeModal()">Close</button>
     </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeDeleteModal()">&times;</span>
+        <h3 style="margin-bottom:10px; color:#dc2626;">Delete Message</h3>
+        <p style="font-size:14px; color:#555; margin-bottom:6px;">
+            Are you sure you want to delete the message from
+        </p>
+        <p style="font-size:14px; font-weight:600; color:#333; margin-bottom:20px;" id="delete-name"></p>
+        <p style="font-size:13px; color:#aaa; margin-bottom:20px;">This action cannot be undone.</p>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
+            <a id="delete-confirm-btn" href="#" class="btn-delete-confirm">Delete</a>
+        </div>
+    </div>
+</div>
+
 <!-- Logout Modal -->
 <div id="logoutModal" class="modal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeLogoutModal()">&times;</span>
-        <h3 style="margin-bottom:10px; color: var(--deep-wisteria);">Confirm Logout</h3>
-        <p style="font-size:14px; color:#555; margin-bottom:20px;">
-            Are you sure you want to log out?
-        </p>
-
+        <h3 style="margin-bottom:10px; color:var(--deep-wisteria);">Confirm Logout</h3>
+        <p style="font-size:14px; color:#555; margin-bottom:20px;">Are you sure you want to log out?</p>
         <div style="display:flex; justify-content:flex-end; gap:10px;">
             <button onclick="closeLogoutModal()" class="btn-cancel">Cancel</button>
             <a href="logout.php" class="btn-logout-confirm">Logout</a>
         </div>
     </div>
 </div>
+
 <script>
+// ── View Modal ──
 document.querySelectorAll('.btn-view').forEach(btn => {
     btn.addEventListener('click', function(e) {
         e.preventDefault();
         const row = this.closest('tr');
-        document.getElementById('modal-subject').textContent  = row.dataset.subject;
+        document.getElementById('modal-subject').textContent = row.dataset.subject;
         document.getElementById('modal-meta').innerHTML =
             `<strong>From:</strong> ${row.dataset.name}<br>
              <strong>Email:</strong> ${row.dataset.email}<br>
@@ -175,7 +191,6 @@ document.querySelectorAll('.btn-view').forEach(btn => {
         document.getElementById('modal-message').textContent = row.dataset.message;
         document.getElementById('msgModal').classList.add('open');
 
-        // Auto mark as read
         const id = this.dataset.id;
         if (this.dataset.read === '0') {
             fetch('?read=' + id);
@@ -195,23 +210,38 @@ document.getElementById('msgModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
 });
 
-// Logout Modal
+// ── Delete Modal ──
+document.querySelectorAll('.btn-delete-trigger').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id   = this.dataset.id;
+        const name = this.dataset.name;
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-confirm-btn').href = '?delete=' + id;
+        document.getElementById('deleteModal').style.display = 'flex';
+    });
+});
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// ── Logout Modal ──
 function openLogoutModal() {
-    document.getElementById("logoutModal").style.display = "flex";
+    document.getElementById('logoutModal').style.display = 'flex';
 }
 
 function closeLogoutModal() {
-    document.getElementById("logoutModal").style.display = "none";
+    document.getElementById('logoutModal').style.display = 'none';
 }
 
-// Close when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById("logoutModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
+// Close modals when clicking outside
+window.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('deleteModal'))
+        document.getElementById('deleteModal').style.display = 'none';
+    if (e.target === document.getElementById('logoutModal'))
+        document.getElementById('logoutModal').style.display = 'none';
+});
 </script>
 
 </body>
