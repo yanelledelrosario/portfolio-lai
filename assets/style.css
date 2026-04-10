@@ -180,17 +180,6 @@ body { background: #f7f0ff; min-height: 100vh; }
     letter-spacing: 0.8px;
 }
 
-/* ── STATS TWO-ROW LAYOUT ────────────────── */
-.stats-row-1 {
-    grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 16px;
-}
-
-.stats-row-2 {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 20px;
-}
-
 /* ── HIGHLIGHTS ──────────────────────────── */
 .highlight-section {
     background: var(--white);
@@ -518,7 +507,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 }
 
 .hero-bio p {
-    font-size: 20px;
+    font-size: 15px;
     color: #333;
     line-height: 1.9;
     text-align: justify;
@@ -1205,28 +1194,207 @@ tbody td {
 .btn-cancel:hover {
     background: var(--pale-lilac);
 }
+/* ============================= */
+/* 📱 TABLET (768px and below)   */
+/* ============================= */
+@media (max-width: 768px) {
 
-/* ── PROJECT MODAL SIZE UPDATE ───────────── */
-.project-modal-box {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 32px;
-    width: 90vw;
-    max-width: 90vw;
-    max-height: 88vh;
-    overflow-y: auto;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-    position: relative;
+    .topbar {
+        padding: 0 15px;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .topbar-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .main-content {
+        margin-top: 100px;
+        padding: 10px;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    /* HERO */
+    .hero-body {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .hero-photo {
+        width: 100%;
+    }
+
+    .hero-bio p {
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .hero-bio h2 {
+        font-size: 20px;
+    }
+
+    /* STATS */
+    .stats-row-1 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-row-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* CONTACT */
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* ADMIN STATS */
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* SERVICES */
+    .service-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* SOFT/HARDWARE SKILLS */
+    .soft-skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* PROJECT MODAL */
+    .project-modal-box {
+        width: 95vw;
+        max-width: 95vw;
+        padding: 20px;
+    }
 }
 
-.project-clickable:hover {
-    border-color: var(--classic-wisteria);
-}
+/* ============================= */
+/* 📱 MOBILE (480px and below)   */
+/* ============================= */
+@media (max-width: 480px) {
 
-.project-view-hint {
-    margin-top: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--soft-wisteria);
-    text-align: right;
+    .topbar {
+        padding: 10px;
+    }
+
+    .logo-text {
+        font-size: 14px;
+    }
+
+    .topbar-menu li {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
+
+    .section p {
+        font-size: 13px;
+    }
+
+    /* HERO */
+    .hero-bio p {
+        font-size: 13px;
+    }
+
+    /* STATS */
+    .stats-row-1 {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* TIMELINE (RESUME) */
+    .timeline-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .timeline-role {
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    .timeline-meta {
+        font-size: 11px;
+    }
+
+    .timeline-desc {
+        font-size: 12px;
+    }
+
+    /* SKILLS */
+    .skill-pill {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    /* PROJECTS */
+    .project-card {
+        padding: 16px;
+    }
+
+    .project-title {
+        font-size: 15px;
+    }
+
+    .project-desc {
+        font-size: 13px;
+    }
+
+    /* PROJECT MODAL */
+    .project-modal-box {
+        width: 98vw;
+        max-width: 98vw;
+        padding: 16px;
+        max-height: 92vh;
+    }
+
+    /* ADMIN TABLE */
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: 15px;
+        background: var(--white);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    tbody td {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    /* SERVICES */
+    .services-wrapper {
+        padding: 0 10px 10px;
+    }
+
+    /* SOFT SKILLS */
+    .soft-skill-card {
+        padding: 14px;
+    }
 }
