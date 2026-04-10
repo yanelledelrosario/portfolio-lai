@@ -180,6 +180,17 @@ body { background: #f7f0ff; min-height: 100vh; }
     letter-spacing: 0.8px;
 }
 
+/* ── STATS TWO-ROW LAYOUT ────────────────── */
+.stats-row-1 {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 16px;
+}
+
+.stats-row-2 {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 20px;
+}
+
 /* ── HIGHLIGHTS ──────────────────────────── */
 .highlight-section {
     background: var(--white);
@@ -507,7 +518,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 }
 
 .hero-bio p {
-    font-size: 15px;
+    font-size: 20px;
     color: #333;
     line-height: 1.9;
     text-align: justify;
