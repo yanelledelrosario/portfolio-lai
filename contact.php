@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="contact-icon">📧</div>
                 <div>
                     <div class="contact-label">Email</div>
-                    <div class="contact-value">lairache@email.com</div>
+                    <div class="contact-value">lairaymundo21@gmail.com</div>
                 </div>
             </div>
             <div class="contact-card">
