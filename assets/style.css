@@ -1194,3 +1194,28 @@ tbody td {
 .btn-cancel:hover {
     background: var(--pale-lilac);
 }
+
+/* ── PROJECT MODAL SIZE UPDATE ───────────── */
+.project-modal-box {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 32px;
+    width: 90vw;
+    max-width: 90vw;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    position: relative;
+}
+
+.project-clickable:hover {
+    border-color: var(--classic-wisteria);
+}
+
+.project-view-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--soft-wisteria);
+    text-align: right;
+}
