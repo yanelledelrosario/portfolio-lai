@@ -90,6 +90,7 @@ body { background: #f7f0ff; min-height: 100vh; }
 
 #tab-content {
     width: 100%;
+    margin-top: 40px;
 }
 
 /* ── SECTION BASE ────────────────────────── */
@@ -1296,6 +1297,10 @@ tbody td {
     .topbar-menu li {
         font-size: 12px;
         padding: 6px 10px;
+    }
+        #tab-content {
+        width: 100%;
+        margin-top: 40px;
     }
 
     .section h2 {
