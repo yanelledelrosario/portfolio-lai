@@ -33,8 +33,7 @@ $projects = [
         "description" => "A system for maintaining and updating laptop parts pricing information across different branches across the country. Allows administrators to set, compare, and update prices with inline editing, bulk upload via Excel/CSV, and exportable reports. Features role-based access for Admin, User, and CCR roles.",
         "tags"        => ["PHP", "MySQL", "CRUD"],
         "screenshots" => [
-            ["src" => "assets/images/lpdb/Screenshot_admindashboard.png",    "caption" => "Admin Dashboard — The main admin interface displaying the full inventory table with all laptop parts. Admins can inline-edit serial numbers, descriptions, and prices directly in the table. Includes search, sort, bulk delete, and duplicate serial number detection."],
-            ["src" => "assets/images/lpdb/Screenshot_dashboard.png",         "caption" => "Dashboard — The admin dashboard viewed without the sidebar open, showing the clean full-width inventory table layout with the sticky search bar and column headers."],
+            ["src" => "assets/images/lpdb/Screenshot_admindashboard.png",       "caption" => "Admin Dashboard — The main admin interface displaying the full inventory table with all laptop parts. Admins can inline-edit serial numbers, descriptions, and prices directly in the table. Includes search, sort, bulk delete, and duplicate serial number detection."],
             ["src" => "assets/images/lpdb/Screenshot_dashboardwithsidebar.png", "caption" => "Dashboard with Sidebar — The system features a collapsible sidebar accessible across all admin pages. It can be toggled open or closed using the hamburger button in the top bar, and its state is preserved across page reloads."],
             ["src" => "assets/images/lpdb/Screenshot_adddata_manualentry.png",  "caption" => "Add Data (Manual Entry) — A modal form for manually adding a single inventory item by entering the serial number, description, and unit price. VAT Inc is automatically computed upon entering the unit price."],
             ["src" => "assets/images/lpdb/Screenshot_adddata_excelupload.png",  "caption" => "Add Data (Excel Upload) — A modal form for bulk uploading inventory data via an Excel (.xlsx) or CSV file. Automatically computes all pricing columns upon upload."],
@@ -42,6 +41,7 @@ $projects = [
             ["src" => "assets/images/lpdb/Screenshot_inventorylogs.png",        "caption" => "Inventory Logs — The System Logs page showing a grouped log of all inventory uploads, displaying the category, total item count, who performed the action, and the date and time. Item counts are clickable to view individual items."],
             ["src" => "assets/images/lpdb/Screenshot_activitylogs.png",         "caption" => "Activity Logs — Tracks all user actions including logins, logouts, additions, edits, and deletions. Each action is color-coded with a badge for quick identification."],
             ["src" => "assets/images/lpdb/Screenshot_manageuser.png",           "caption" => "Manage Users — The user management page where admins can add, edit, and delete user accounts. Supports three roles: Admin, User, and CCR."],
+            ["src" => "assets/images/lpdb/Screenshot_ccrdashboard.png",         "caption" => "Displays the Call Center Representative (CCR) dashboard in view-only mode, providing access to the laptop parts inventory, including part numbers, descriptions, and pricing information, while restricting modification privileges to authorized administrators."],
             ["src" => "assets/images/lpdb/Screenshot_userdashboard.png",        "caption" => "User Dashboard — The read-only inventory view for regular users, displaying all laptop parts with full pricing information. Includes a live search bar and a Change Password option in the top bar."],
         ],
     ],
@@ -68,45 +68,38 @@ $projects = [
     </div>
 </div>
 
-<!-- Project Detail Modal -->
-<div id="project-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center; padding:20px;">
-    <div class="project-modal-box">
-
-        <button id="project-modal-close" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:22px; cursor:pointer; color:#999; line-height:1;">&times;</button>
-
-        <h2 id="pm-title" style="color:var(--deep-wisteria); font-size:20px; margin-bottom:10px; padding-right:30px;"></h2>
-        <div id="pm-tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;"></div>
-        <p id="pm-desc" style="font-size:14px; color:#555; line-height:1.8; margin-bottom:24px;"></p>
-
-        <!-- Screenshot Gallery -->
-        <div id="pm-gallery-wrap">
-            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--soft-wisteria); margin-bottom:12px;">Screenshots</div>
-
-            <!-- Main image -->
-            <div style="background:var(--mist); border-radius:12px; overflow:hidden; margin-bottom:8px; text-align:center; min-height:200px; display:flex; align-items:center; justify-content:center;">
-                <img id="pm-main-img" src="" alt="Screenshot" style="max-width:100%; max-height:360px; object-fit:contain; display:block; border-radius:8px; cursor:zoom-in;">
-                <p id="pm-no-img" style="color:#bbb; font-size:13px; display:none;">Screenshots coming soon</p>
-            </div>
-
-            <!-- Caption -->
-            <p id="pm-caption" style="font-size:13px; color:#666; line-height:1.7; margin-bottom:14px; min-height:20px;"></p>
-
-            <!-- Thumbnails -->
-            <div id="pm-thumbs" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
-        </div>
-
-    </div>
-</div>
-
 <script>
 (function () {
     const projects = <?php echo json_encode($projects); ?>;
-    const overlay  = document.getElementById('project-modal-overlay');
-    const closeBtn = document.getElementById('project-modal-close');
-    const mainImg  = document.getElementById('pm-main-img');
-    const noImg    = document.getElementById('pm-no-img');
-    const captionEl= document.getElementById('pm-caption');
-    const thumbsEl = document.getElementById('pm-thumbs');
+
+    // Build modal directly on document.body so no parent CSS can affect it
+    const overlay = document.createElement('div');
+    overlay.id = 'project-modal-overlay';
+    overlay.style.cssText = 'display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;';
+    overlay.innerHTML = `
+        <div id="pm-box" style="background:#ffffff; border-radius:18px; padding:32px; width:90vw; max-width:90vw; max-height:88vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.18); position:relative;">
+            <button id="project-modal-close" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:22px; cursor:pointer; color:#999; line-height:1;">&times;</button>
+            <h2 id="pm-title" style="color:#8E44AD; font-size:20px; margin-bottom:10px; padding-right:30px;"></h2>
+            <div id="pm-tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;"></div>
+            <p id="pm-desc" style="font-size:14px; color:#555; line-height:1.8; margin-bottom:24px;"></p>
+            <div id="pm-gallery-wrap">
+                <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#BB8FCE; margin-bottom:12px;">Screenshots</div>
+                <div style="background:#F0E0FF; border-radius:12px; overflow:hidden; margin-bottom:8px; text-align:center; min-height:200px; display:flex; align-items:center; justify-content:center;">
+                    <img id="pm-main-img" src="" alt="Screenshot" style="max-width:100%; max-height:360px; object-fit:contain; display:block; border-radius:8px; cursor:zoom-in;">
+                    <p id="pm-no-img" style="color:#bbb; font-size:13px; display:none;">Screenshots coming soon</p>
+                </div>
+                <p id="pm-caption" style="font-size:13px; color:#666; line-height:1.7; margin-bottom:14px; min-height:20px;"></p>
+                <div id="pm-thumbs" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const closeBtn  = document.getElementById('project-modal-close');
+    const mainImg   = document.getElementById('pm-main-img');
+    const noImg     = document.getElementById('pm-no-img');
+    const captionEl = document.getElementById('pm-caption');
+    const thumbsEl  = document.getElementById('pm-thumbs');
 
     document.querySelectorAll('.project-clickable').forEach(card => {
         card.addEventListener('click', function () {
@@ -120,9 +113,9 @@ $projects = [
             const tagsEl = document.getElementById('pm-tags');
             tagsEl.innerHTML = '';
             project.tags.forEach(tag => {
-                const span = document.createElement('span');
-                span.className   = 'project-tag';
+                const span       = document.createElement('span');
                 span.textContent = tag;
+                span.style.cssText = 'font-size:11px; font-weight:500; background:#DBC3EA; color:#8E44AD; padding:4px 12px; border-radius:99px;';
                 tagsEl.appendChild(span);
             });
 
@@ -130,7 +123,7 @@ $projects = [
             thumbsEl.innerHTML = '';
 
             if (project.screenshots && project.screenshots.length > 0) {
-                const first = project.screenshots[0];
+                const first       = project.screenshots[0];
                 mainImg.src           = first.src;
                 mainImg.style.display = 'block';
                 noImg.style.display   = 'none';
@@ -140,14 +133,13 @@ $projects = [
                     const thumb = document.createElement('img');
                     thumb.src         = shot.src;
                     thumb.alt         = 'Screenshot ' + (i + 1);
-                    thumb.className   = 'pm-thumb';
                     thumb.title       = shot.caption;
-                    thumb.style.cssText = 'width:80px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid ' + (i === 0 ? 'var(--deep-wisteria)' : 'var(--pale-lilac)') + '; transition:border 0.2s;';
+                    thumb.style.cssText = 'width:80px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid ' + (i === 0 ? '#8E44AD' : '#DBC3EA') + '; transition:border 0.2s;';
                     thumb.addEventListener('click', function () {
                         mainImg.src           = shot.src;
                         captionEl.textContent = shot.caption;
-                        document.querySelectorAll('.pm-thumb').forEach(t => t.style.borderColor = 'var(--pale-lilac)');
-                        this.style.borderColor = 'var(--deep-wisteria)';
+                        document.querySelectorAll('#pm-thumbs img').forEach(t => t.style.borderColor = '#DBC3EA');
+                        this.style.borderColor = '#8E44AD';
                     });
                     thumbsEl.appendChild(thumb);
                 });
@@ -167,9 +159,8 @@ $projects = [
     });
 
     // Lightbox
-    const lightbox    = document.createElement('div');
-    lightbox.id       = 'pm-lightbox';
-    lightbox.style.cssText = 'display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:1100; align-items:center; justify-content:center; cursor:zoom-out;';
+    const lightbox = document.createElement('div');
+    lightbox.style.cssText = 'display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:10000; align-items:center; justify-content:center; cursor:zoom-out;';
     lightbox.innerHTML = '<img id="pm-lightbox-img" style="max-width:90vw; max-height:90vh; object-fit:contain; border-radius:10px; box-shadow:0 8px 40px rgba(0,0,0,0.5);">';
     document.body.appendChild(lightbox);
 
