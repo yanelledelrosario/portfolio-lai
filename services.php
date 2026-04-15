@@ -43,7 +43,7 @@ $services = [
         "items"    => [
             ["title" => "English Language Tutoring (Beginner - Intermediate)", "desc" => "Teaching English with focus on speaking, reading, and comprehension skills."],
             ["title" => "Mathematics Tutoring (Elementary)", "desc" => "Providing guidance and tutoring for elementary mathematics concepts."],
-            ["title" => "Science Tutoring (Elementary)",  "desc" => "Supporting students with middle school science concepts and experiments."],
+            ["title" => "Science Tutoring (Elementary - High School)",  "desc" => "Supporting students from elementary to high school with science concepts and experiments."],
 
         ]
     ],
