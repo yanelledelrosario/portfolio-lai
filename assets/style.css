@@ -181,6 +181,24 @@ body { background: #f7f0ff; min-height: 100vh; }
     letter-spacing: 0.8px;
 }
 
+/* ── STAT CARD CLICKABLE ─────────────────── */
+.stat-clickable {
+    cursor: pointer;
+}
+
+.stat-clickable:hover .stat-hint {
+    opacity: 1;
+}
+
+.stat-hint {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--soft-wisteria);
+    margin-top: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
 /* ── HIGHLIGHTS ──────────────────────────── */
 .highlight-section {
     background: var(--white);
