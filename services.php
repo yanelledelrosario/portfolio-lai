@@ -41,8 +41,10 @@ $services = [
         "category" => "Tutoring & Teaching",
         "icon"     => "📚",
         "items"    => [
-            ["title" => "English Language Tutoring",    "desc" => "Teaching English with focus on speaking, reading, and comprehension skills."],
-            ["title" => "Web Development Basics",       "desc" => "Guiding beginners through the fundamentals of HTML, CSS, and PHP development."],
+            ["title" => "English Language Tutoring (Beginner - Intermediate)", "desc" => "Teaching English with focus on speaking, reading, and comprehension skills."],
+            ["title" => "Mathematics Tutoring (Elementary)", "desc" => "Providing guidance and tutoring for elementary mathematics concepts."],
+            ["title" => "Science Tutoring (Elementary)",  "desc" => "Supporting students with middle school science concepts and experiments."],
+
         ]
     ],
 ];
