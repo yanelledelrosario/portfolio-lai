@@ -73,22 +73,33 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
                     <th>Subject</th>
                     <th>Message</th>
                     <th>Date</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($messages->num_rows === 0): ?>
-                    <tr><td colspan="5">
+                    <tr><td colspan="4">
                         <div class="empty-state"><span>📭</span>No messages found.</div>
                     </td></tr>
                 <?php else: ?>
                     <?php while ($msg = $messages->fetch_assoc()): ?>
-                    <tr class="<?php echo !$msg['is_read'] ? 'unread' : ''; ?>"
+                    <?php
+                        $mid = $msg['id'];
+                        $replies_result = $conn->query("SELECT * FROM replies WHERE message_id = $mid ORDER BY sent_at ASC");
+                        $replies_data = [];
+                        while ($r = $replies_result->fetch_assoc()) {
+                            $replies_data[] = $r;
+                        }
+                        $replies_json = htmlspecialchars(json_encode($replies_data), ENT_QUOTES);
+                    ?>
+                    <tr class="<?php echo !$msg['is_read'] ? 'unread' : ''; ?> clickable-row"
+                        data-id="<?php echo $msg['id']; ?>"
+                        data-read="<?php echo $msg['is_read']; ?>"
                         data-name="<?php echo htmlspecialchars($msg['name']); ?>"
                         data-email="<?php echo htmlspecialchars($msg['email']); ?>"
                         data-subject="<?php echo htmlspecialchars($msg['subject']); ?>"
                         data-message="<?php echo htmlspecialchars($msg['message']); ?>"
-                        data-date="<?php echo $msg['created_at']; ?>">
+                        data-date="<?php echo $msg['created_at']; ?>"
+                        data-replies="<?php echo $replies_json; ?>">
                         <td>
                             <div class="td-name"><?php echo htmlspecialchars($msg['name']); ?>
                                 <?php if (!$msg['is_read']): ?>
@@ -100,23 +111,6 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
                         <td class="td-subject"><?php echo htmlspecialchars($msg['subject']); ?></td>
                         <td class="td-message"><?php echo htmlspecialchars(substr($msg['message'], 0, 80)) . (strlen($msg['message']) > 80 ? '...' : ''); ?></td>
                         <td class="td-date"><?php echo date('M d, Y', strtotime($msg['created_at'])); ?><br><?php echo date('h:i A', strtotime($msg['created_at'])); ?></td>
-                        <td>
-                            <div class="actions">
-                                <a href="#" class="btn-read btn-view"
-                                   data-id="<?php echo $msg['id']; ?>"
-                                   data-read="<?php echo $msg['is_read']; ?>">View</a>
-                                <a href="#" class="btn-read btn-reply-trigger"
-                                   data-email="<?php echo htmlspecialchars($msg['email']); ?>"
-                                   data-name="<?php echo htmlspecialchars($msg['name']); ?>"
-                                   data-subject="<?php echo htmlspecialchars($msg['subject']); ?>" data-message="<?php echo htmlspecialchars($msg['message']); ?>">Reply</a>
-                                <?php if (!$msg['is_read']): ?>
-                                    <a href="?read=<?php echo $msg['id']; ?>" class="btn-read">Mark Read</a>
-                                <?php endif; ?>
-                                <a href="#" class="btn-delete btn-delete-trigger"
-                                   data-id="<?php echo $msg['id']; ?>"
-                                   data-name="<?php echo htmlspecialchars($msg['name']); ?>">Delete</a>
-                            </div>
-                        </td>
                     </tr>
                     <?php endwhile; ?>
                 <?php endif; ?>
@@ -125,19 +119,44 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
     </div>
 </div>
 
-<!-- View Modal -->
-<div class="modal-overlay" id="msgModal">
-    <div class="modal-box">
-        <h3 id="modal-subject"></h3>
-        <div class="modal-meta" id="modal-meta"></div>
-        <div class="modal-message" id="modal-message"></div>
-        <button class="btn-close" onclick="closeModal()">Close</button>
+<!-- View Message Modal -->
+<div id="msgModal" class="modal">
+    <div class="gmail-modal">
+
+        <!-- Gmail-style header -->
+        <div class="gmail-header">
+            <h3 id="modal-subject" class="gmail-subject"></h3>
+            <span class="gmail-close" onclick="closeModal()">&times;</span>
+        </div>
+
+        <!-- Sender info row -->
+        <div class="gmail-sender-row">
+            <div class="gmail-avatar" id="modal-avatar"></div>
+            <div class="gmail-sender-info">
+                <div class="gmail-sender-name" id="modal-sender-name"></div>
+                <div class="gmail-sender-email" id="modal-sender-email"></div>
+            </div>
+            <div class="gmail-date" id="modal-date"></div>
+        </div>
+
+        <!-- Message body -->
+        <div class="gmail-body" id="modal-message"></div>
+
+        <!-- Replies thread -->
+        <div id="modal-replies"></div>
+
+        <!-- Action buttons -->
+        <div class="gmail-actions">
+            <button onclick="openReplyFromView()" class="gmail-btn-reply">↩ Reply</button>
+            <button onclick="openDeleteFromView()" class="gmail-btn-delete">🗑 Delete</button>
+        </div>
+
     </div>
 </div>
 
 <!-- Reply Modal -->
 <div id="replyModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width:780px; width:90%;">
         <span class="modal-close" onclick="closeReplyModal()">&times;</span>
         <h3 style="margin-bottom:6px; color:var(--deep-wisteria);">Reply</h3>
         <p id="reply-to-label" style="font-size:13px; color:#888; margin-bottom:18px;"></p>
@@ -186,46 +205,78 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM messages WHERE is_read = 0")->
 </div>
 
 <script>
-// ── View Modal ──
-document.querySelectorAll('.btn-view').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const row = this.closest('tr');
-        document.getElementById('modal-subject').textContent = row.dataset.subject;
-        document.getElementById('modal-meta').innerHTML =
-            `<strong>From:</strong> ${row.dataset.name}<br>
-             <strong>Email:</strong> ${row.dataset.email}<br>
-             <strong>Date:</strong> ${row.dataset.date}`;
-        document.getElementById('modal-message').textContent = row.dataset.message;
-        document.getElementById('msgModal').classList.add('open');
-        const id = this.dataset.id;
+let currentRow = null;
+let replyEmail = '', replyName = '';
+
+// ── Clickable Row → open View Modal ──
+document.querySelectorAll('.clickable-row').forEach(row => {
+    row.addEventListener('click', function() {
+        currentRow = this;
+
+        const name    = this.dataset.name;
+        const email   = this.dataset.email;
+        const subject = this.dataset.subject;
+        const message = this.dataset.message;
+        const date    = this.dataset.date;
+
+        document.getElementById('modal-subject').textContent     = subject;
+        document.getElementById('modal-sender-name').textContent = name;
+        document.getElementById('modal-sender-email').textContent = email;
+        document.getElementById('modal-date').textContent        = new Date(date).toLocaleString('en-US', {month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit'});
+        document.getElementById('modal-message').textContent     = message;
+        document.getElementById('modal-avatar').textContent      = name.charAt(0).toUpperCase();
+
+        // Render replies
+        const repliesContainer = document.getElementById('modal-replies');
+        const replies = JSON.parse(this.dataset.replies || '[]');
+        if (replies.length > 0) {
+            repliesContainer.innerHTML = `
+                <div class="gmail-replies-divider">Replies (${replies.length})</div>
+                ${replies.map(r => `
+                <div class="gmail-reply-item">
+                    <div class="gmail-reply-header">
+                        <div class="gmail-reply-avatar">L</div>
+                        <div class="gmail-reply-meta">
+                            <div class="gmail-reply-from">Lai Rache <span>(you)</span></div>
+                            <div class="gmail-reply-date">${new Date(r.sent_at).toLocaleString('en-US', {month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit'})}</div>
+                        </div>
+                    </div>
+                    <div class="gmail-reply-body">${r.body.replace(/\n/g, '<br>')}</div>
+                </div>`).join('')}`;
+        } else {
+            repliesContainer.innerHTML = '';
+        }
+
+        document.getElementById('msgModal').style.display = 'flex';
+
+        // Auto mark as read
         if (this.dataset.read === '0') {
-            fetch('?read=' + id);
-            row.classList.remove('unread');
-            const badge = row.querySelector('.badge-unread');
+            fetch('?read=' + this.dataset.id);
+            this.classList.remove('unread');
+            const badge = this.querySelector('.badge-unread');
             if (badge) badge.remove();
             this.dataset.read = '1';
         }
     });
 });
-function closeModal() { document.getElementById('msgModal').classList.remove('open'); }
-document.getElementById('msgModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-// ── Reply Modal ──
-let replyEmail = '', replyName = '';
+function closeModal() { document.getElementById('msgModal').style.display = 'none'; }
 
-document.querySelectorAll('.btn-reply-trigger').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        replyEmail = this.dataset.email;
-        replyName  = this.dataset.name;
-        document.getElementById('reply-to-label').textContent = `To: ${replyName} <${replyEmail}>`;
-        document.getElementById('reply-subject').value = 'Re: ' + this.dataset.subject;
-        document.getElementById('reply-body').value = '';
-        document.getElementById('reply-feedback').textContent = '';
-        document.getElementById('replyModal').style.display = 'flex';
-    });
-});
+// ── Reply from View Modal ──
+let replyMessageId = '';
+
+function openReplyFromView() {
+    if (!currentRow) return;
+    closeModal();
+    replyEmail     = currentRow.dataset.email;
+    replyName      = currentRow.dataset.name;
+    replyMessageId = currentRow.dataset.id;
+    document.getElementById('reply-to-label').textContent = `To: ${replyName} <${replyEmail}>`;
+    document.getElementById('reply-subject').value = 'Re: ' + currentRow.dataset.subject;
+    document.getElementById('reply-body').value    = '';
+    document.getElementById('reply-feedback').textContent = '';
+    document.getElementById('replyModal').style.display = 'flex';
+}
 
 function closeReplyModal() { document.getElementById('replyModal').style.display = 'none'; }
 
@@ -241,9 +292,8 @@ function sendReply() {
         return;
     }
 
-    btn.textContent  = 'Sending...';
-    btn.disabled     = true;
-    feedback.style.color = '#888';
+    btn.textContent = 'Sending...';
+    btn.disabled    = true;
     feedback.textContent = '';
 
     emailjs.send('service_h7daoem', 'template_3eud82l', {
@@ -254,6 +304,15 @@ function sendReply() {
         reply_to: 'yanelledelrosario@gmail.com'
     })
     .then(() => {
+        // Save reply to database
+        const formData = new FormData();
+        formData.append('message_id', replyMessageId);
+        formData.append('to_email',   replyEmail);
+        formData.append('to_name',    replyName);
+        formData.append('subject',    subject);
+        formData.append('body',       body);
+        fetch('save_reply.php', { method: 'POST', body: formData });
+
         feedback.style.color = '#16a34a';
         feedback.textContent = '✅ Reply sent successfully!';
         btn.textContent = 'Send Reply';
@@ -268,15 +327,15 @@ function sendReply() {
     });
 }
 
-// ── Delete Modal ──
-document.querySelectorAll('.btn-delete-trigger').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('delete-name').textContent = this.dataset.name;
-        document.getElementById('delete-confirm-btn').href = '?delete=' + this.dataset.id;
-        document.getElementById('deleteModal').style.display = 'flex';
-    });
-});
+// ── Delete from View Modal ──
+function openDeleteFromView() {
+    if (!currentRow) return;
+    closeModal();
+    document.getElementById('delete-name').textContent   = currentRow.dataset.name;
+    document.getElementById('delete-confirm-btn').href   = '?delete=' + currentRow.dataset.id;
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
 function closeDeleteModal() { document.getElementById('deleteModal').style.display = 'none'; }
 
 // ── Logout Modal ──
@@ -285,11 +344,14 @@ function closeLogoutModal() { document.getElementById('logoutModal').style.displ
 
 // Close on outside click
 window.addEventListener('click', function(e) {
-    if (e.target === document.getElementById('deleteModal'))  document.getElementById('deleteModal').style.display  = 'none';
-    if (e.target === document.getElementById('logoutModal'))  document.getElementById('logoutModal').style.display  = 'none';
-    if (e.target === document.getElementById('replyModal'))   document.getElementById('replyModal').style.display   = 'none';
+    ['msgModal','replyModal','deleteModal','logoutModal'].forEach(id => {
+        if (e.target === document.getElementById(id))
+            document.getElementById(id).style.display = 'none';
+    });
 });
 </script>
+
+
 
 </body>
 </html>

@@ -90,7 +90,6 @@ body { background: #f7f0ff; min-height: 100vh; }
 
 #tab-content {
     width: 100%;
-    margin-top: 40px;
 }
 
 /* ── SECTION BASE ────────────────────────── */
@@ -179,24 +178,6 @@ body { background: #f7f0ff; min-height: 100vh; }
     color: #888;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-}
-
-/* ── STAT CARD CLICKABLE ─────────────────── */
-.stat-clickable {
-    cursor: pointer;
-}
-
-.stat-clickable:hover .stat-hint {
-    opacity: 1;
-}
-
-.stat-hint {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--soft-wisteria);
-    margin-top: 8px;
-    opacity: 0;
-    transition: opacity 0.2s;
 }
 
 /* ── HIGHLIGHTS ──────────────────────────── */
@@ -1213,211 +1194,384 @@ tbody td {
 .btn-cancel:hover {
     background: var(--pale-lilac);
 }
-/* ============================= */
-/* 📱 TABLET (768px and below)   */
-/* ============================= */
-@media (max-width: 768px) {
+/* ── RESUME DOWNLOAD BUTTON ──────────────── */
+.btn-download {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 11px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    transition: opacity 0.2s, transform 0.15s;
+}
+.btn-download:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    .topbar {
-        padding: 0 15px;
-        height: auto;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 10px 15px;
-    }
+/* ── CONTACT ─────────────────────────────── */
+.contact-subtitle {
+    color: var(--soft-wisteria);
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 30px;
+    align-items: start;
+}
+.contact-info { display: flex; flex-direction: column; gap: 14px; }
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.contact-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(142,68,173,0.12); }
+.contact-icon {
+    font-size: 20px;
+    width: 44px; height: 44px;
+    background: var(--pale-lilac);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.contact-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--soft-wisteria); margin-bottom: 3px; }
+.contact-value { font-size: 13px; font-weight: 500; color: var(--deep-wisteria); }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--classic-wisteria); }
+.form-group input, .form-group textarea {
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--classic-wisteria); }
+.btn-send {
+    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 13px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    align-self: flex-start;
+}
+.btn-send:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    .topbar-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
+/* ── FORM ALERTS ─────────────────────────── */
+.form-alert { padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 500; }
+.form-alert.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; }
+.form-alert.error   { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
 
-    .main-content {
-        margin-top: 100px;
-        padding: 10px;
-    }
+/* ── ADMIN LOGIN ─────────────────────────── */
+.login-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 30px rgba(142,68,173,0.15);
+    margin: 100px auto 0;
+}
+.login-logo { text-align: center; margin-bottom: 32px; }
+.login-logo h1 { font-size: 22px; font-weight: 700; color: var(--deep-wisteria); }
+.login-logo p  { font-size: 13px; color: #999; margin-top: 4px; }
+.btn-login {
+    width: 100%;
+    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity 0.2s;
+}
+.btn-login:hover { opacity: 0.88; }
+.alert-error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; }
 
-    .section {
-        padding: 15px;
-    }
+/* ── ADMIN PANEL ─────────────────────────── */
+.topbar-title { font-size: 17px; font-weight: 700; color: var(--deep-wisteria); }
+.topbar-right { display: flex; align-items: center; gap: 16px; font-size: 13px; color: #888; }
+.btn-logout {
+    background: var(--mist);
+    border: 1px solid var(--pale-lilac);
+    color: var(--deep-wisteria);
+    border-radius: 8px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.btn-logout:hover { background: var(--pale-lilac); }
+.main { margin-top: 80px; padding: 0 36px 40px; }
+.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 28px; }
+.stat-box { background: var(--white); border: 1px solid var(--pale-lilac); border-radius: 14px; padding: 20px 24px; text-align: center; box-shadow: 0 2px 8px rgba(142,68,173,0.06); }
+.stat-box h3 { font-size: 32px; font-weight: 700; color: var(--deep-wisteria); }
+.stat-box p  { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+.filter-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.filter-tab { padding: 7px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; color: var(--classic-wisteria); background: var(--white); border: 1px solid var(--pale-lilac); transition: all 0.2s; }
+.filter-tab:hover, .filter-tab.active { background: var(--deep-wisteria); color: var(--white); border-color: var(--deep-wisteria); }
+.unread-badge { display: inline-block; background: var(--deep-wisteria); color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-left: 6px; }
+.table-wrap { background: var(--white); border-radius: 16px; border: 1px solid var(--pale-lilac); overflow: hidden; box-shadow: 0 2px 10px rgba(142,68,173,0.06); }
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--mist); }
+thead th { padding: 14px 20px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-wisteria); }
+tbody tr { border-top: 1px solid #f3eaff; transition: background 0.15s; }
+tbody tr:hover { background: #faf5ff; }
+tbody tr.unread { background: #fdf8ff; }
+tbody td { padding: 16px 20px; font-size: 14px; color: #444; vertical-align: top; }
+.td-name { font-weight: 600; color: #333; }
+.td-email { font-size: 12px; color: #888; margin-top: 2px; }
+.td-subject { font-weight: 500; color: var(--deep-wisteria); }
+.td-message { font-size: 13px; color: #666; max-width: 300px; }
+.td-date { font-size: 12px; color: #aaa; white-space: nowrap; }
+.badge-unread { display: inline-block; background: var(--deep-wisteria); color: white; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
+.actions { display: flex; gap: 8px; }
+.btn-read { font-size: 12px; padding: 5px 12px; border-radius: 7px; text-decoration: none; font-weight: 500; background: var(--mist); color: var(--deep-wisteria); border: 1px solid var(--pale-lilac); transition: background 0.2s; }
+.btn-read:hover { background: var(--pale-lilac); }
+.btn-delete { font-size: 12px; padding: 5px 12px; border-radius: 7px; text-decoration: none; font-weight: 500; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; transition: background 0.2s; }
+.btn-delete:hover { background: #fee2e2; }
+.empty-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 15px; }
+.empty-state span { display: block; font-size: 40px; margin-bottom: 12px; }
 
-    /* HERO */
-    .hero-body {
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-    }
+/* ── ADMIN MODALS ────────────────────────── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--white); border-radius: 16px; padding: 36px; width: 90%; max-width: 540px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+.modal-box h3 { font-size: 18px; font-weight: 700; color: var(--deep-wisteria); margin-bottom: 16px; }
+.modal-meta { font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.8; }
+.modal-meta strong { color: #444; }
+.modal-message { background: var(--mist); border-radius: 10px; padding: 16px 18px; font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 20px; }
+.btn-close { background: var(--mist); border: 1px solid var(--pale-lilac); color: var(--deep-wisteria); border-radius: 8px; padding: 9px 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
+.modal-content { background: var(--white); border-radius: 16px; padding: 32px; width: 90%; max-width: 440px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); position: relative; }
+.modal-close { position: absolute; top: 16px; right: 20px; font-size: 20px; cursor: pointer; color: #aaa; }
+.modal-close:hover { color: #333; }
+.btn-cancel { background: var(--mist); border: 1px solid var(--pale-lilac); color: #555; border-radius: 8px; padding: 9px 20px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Poppins', sans-serif; }
+.btn-cancel:hover { background: var(--pale-lilac); }
+.btn-delete-confirm { background: #dc2626; color: white; border-radius: 8px; padding: 9px 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.btn-delete-confirm:hover { background: #b91c1c; }
+.btn-logout-confirm { background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria)); color: white; border-radius: 8px; padding: 9px 20px; font-size: 13px; font-weight: 600; text-decoration: none; }
+.btn-logout-confirm:hover { opacity: 0.88; }
 
-    .hero-photo {
-        width: 100%;
-    }
+/* ── ADMIN TOPBAR LINK ───────────────────── */
+.topbar-menu li.admin-link { color: var(--deep-wisteria); border: 1.5px solid var(--pale-lilac); border-radius: 8px; margin-left: 8px; font-weight: 600; }
+.topbar-menu li.admin-link:hover { background: var(--deep-wisteria); color: var(--white); border-color: var(--deep-wisteria); }
 
-    .hero-bio p {
-        font-size: 15px;
-        text-align: left;
-    }
+/* ── CLICKABLE ROWS ──────────────────────── */
+.clickable-row { cursor: pointer; }
+.clickable-row:hover { background: #f3eaff !important; }
 
-    .hero-bio h2 {
-        font-size: 20px;
-    }
-
-    /* STATS */
-    .stats-row-1 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stats-row-2 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* CONTACT */
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    /* ADMIN STATS */
-    .stats-row {
-        grid-template-columns: 1fr;
-    }
-
-    /* SERVICES */
-    .service-cards {
-        grid-template-columns: 1fr;
-    }
-
-    /* SOFT/HARDWARE SKILLS */
-    .soft-skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* PROJECT MODAL */
-    .project-modal-box {
-        width: 95vw;
-        max-width: 95vw;
-        padding: 20px;
-    }
+/* ── GMAIL-STYLE MODAL ───────────────────── */
+.gmail-modal {
+    background: var(--white);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
 }
 
-/* ============================= */
-/* 📱 MOBILE (480px and below)   */
-/* ============================= */
-@media (max-width: 480px) {
+.gmail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid #f0e0ff;
+    gap: 16px;
+}
 
-    .topbar {
-        padding: 10px;
-    }
+.gmail-subject {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    flex: 1;
+    line-height: 1.3;
+}
 
-    .logo-text {
-        font-size: 14px;
-    }
+.gmail-close {
+    font-size: 22px;
+    color: #aaa;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.gmail-close:hover { color: #333; }
 
-    .topbar-menu li {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-        #tab-content {
-        width: 100%;
-        margin-top: 40px;
-    }
+.gmail-sender-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 28px;
+    border-bottom: 1px solid #f7f0ff;
+}
 
-    .section h2 {
-        font-size: 18px;
-    }
+.gmail-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--deep-wisteria), var(--classic-wisteria));
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-    .section p {
-        font-size: 13px;
-    }
+.gmail-sender-info { flex: 1; }
 
-    /* HERO */
-    .hero-bio p {
-        font-size: 13px;
-    }
+.gmail-sender-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
 
-    /* STATS */
-    .stats-row-1 {
-        grid-template-columns: 1fr;
-    }
+.gmail-sender-email {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
 
-    .stats-row-2 {
-        grid-template-columns: 1fr;
-    }
+.gmail-date {
+    font-size: 12px;
+    color: #aaa;
+    white-space: nowrap;
+}
 
-    /* TIMELINE (RESUME) */
-    .timeline-item {
-        flex-direction: column;
-        gap: 8px;
-    }
+.gmail-body {
+    padding: 24px 28px;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    flex: 1;
+    min-height: 120px;
+}
 
-    .timeline-role {
-        font-size: 14px;
-        flex-wrap: wrap;
-    }
+.gmail-actions {
+    display: flex;
+    gap: 10px;
+    padding: 16px 28px 24px;
+    border-top: 1px solid #f0e0ff;
+}
 
-    .timeline-meta {
-        font-size: 11px;
-    }
+.gmail-btn-reply {
+    background: var(--mist);
+    border: 1.5px solid var(--pale-lilac);
+    color: var(--deep-wisteria);
+    border-radius: 8px;
+    padding: 9px 22px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.gmail-btn-reply:hover { background: var(--pale-lilac); }
 
-    .timeline-desc {
-        font-size: 12px;
-    }
+.gmail-btn-delete {
+    background: #fef2f2;
+    border: 1.5px solid #fecaca;
+    color: #dc2626;
+    border-radius: 8px;
+    padding: 9px 22px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.gmail-btn-delete:hover { background: #fee2e2; }
 
-    /* SKILLS */
-    .skill-pill {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
+/* ── GMAIL REPLY THREAD ──────────────────── */
+.gmail-replies-divider {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--soft-wisteria);
+    padding: 12px 28px;
+    background: #faf5ff;
+    border-top: 1px solid #f0e0ff;
+    border-bottom: 1px solid #f0e0ff;
+}
 
-    /* PROJECTS */
-    .project-card {
-        padding: 16px;
-    }
+.gmail-reply-item {
+    padding: 16px 28px;
+    border-bottom: 1px solid #f7f0ff;
+}
 
-    .project-title {
-        font-size: 15px;
-    }
+.gmail-reply-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
 
-    .project-desc {
-        font-size: 13px;
-    }
+.gmail-reply-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--classic-wisteria), var(--soft-wisteria));
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-    /* PROJECT MODAL */
-    .project-modal-box {
-        width: 98vw;
-        max-width: 98vw;
-        padding: 16px;
-        max-height: 92vh;
-    }
+.gmail-reply-meta { flex: 1; }
 
-    /* ADMIN TABLE */
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-    }
+.gmail-reply-from {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
 
-    thead {
-        display: none;
-    }
+.gmail-reply-from span {
+    font-weight: 400;
+    color: #999;
+    font-size: 12px;
+}
 
-    tbody tr {
-        margin-bottom: 15px;
-        background: var(--white);
-        border-radius: 10px;
-        padding: 10px;
-    }
+.gmail-reply-date {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 2px;
+}
 
-    tbody td {
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-
-    /* SERVICES */
-    .services-wrapper {
-        padding: 0 10px 10px;
-    }
-
-    /* SOFT SKILLS */
-    .soft-skill-card {
-        padding: 14px;
-    }
+.gmail-reply-body {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.8;
+    padding-left: 46px;
 }
