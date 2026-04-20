@@ -35,7 +35,7 @@ $services = [
     "UI/UX Design"       => ["Interface Design", "Form & Layout Design"],
     "Hardware Services"  => ["Laptop Repair", "Parts Isolation", "Reformat & OS Reinstallation"],
     "Content & Creative" => ["Script Writing", "Narrative Writing", "Visual Art"],
-    "Tutoring & Teaching"=> ["English Language Tutoring", "Web Development Basics"],
+    "Tutoring & Teaching"=> ["English Language Tutoring", "Mathematics Tutoring", "Science Tutoring"],
     "Others"             => [],
 ];
 ?>
