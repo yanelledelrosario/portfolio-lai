@@ -16,8 +16,8 @@ function sendReply($to_email, $to_name, $subject, $body) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'lairaymundo21@gmail.com'; // your Gmail
-        $mail->Password   = 'YOUR_APP_PASSWORD';        // Gmail App Password (not your login password)
+        $mail->Username   = 'yanelledelrosario@gmail.com'; // your Gmail
+        $mail->Password   = 'ukto kkms smco cefh';        // Gmail App Password (not your login password)
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
